@@ -1,12 +1,19 @@
+// Note the expression of the NOT NULL constraint:
+// field: number;         NOT NULL
+// field?: number;        NOT NULL with default, auto-increment, etc.
+// field: number | null;  NULL
+
 export interface Authority {
   authorityId?: number;
   isPrimary?: number;
+  primaryField: string | null;
+  isJudicialReview?: number;
   name: string;
   overview: string;
   synopsis: string;
   quotes: string | null;
   notes: string | null;
-  remarks: string | null;
+  tags: string | null;
   inquests: Inquest[];
   authorityDocuments: AuthorityDocument[];
   authorityKeywords: AuthorityKeyword[];
@@ -14,8 +21,6 @@ export interface Authority {
   authorityCitedBy: Authority[];
   authorityRelated: Authority[];
   authorityRelatedBy: Authority[];
-  authoritySuperceded: Authority[];
-  authoritySupercededBy: Authority[];
 }
 
 export interface AuthorityCategory {
@@ -59,6 +64,7 @@ export interface AuthorityKeyword {
   authorityCategoryId: string;
   name: string;
   description: string | null;
+  synonyms: string | null;
   authorityCategory: AuthorityCategory;
 }
 
@@ -71,23 +77,26 @@ export interface DeathCause {
   deathCauseId: string;
   name: string;
   description: string | null;
+  synonyms: string | null;
 }
 
 export interface Deceased {
   deceasedId?: number;
   inquestId: number;
-  inquestTypeId: string;
+  inquestReasonId: string;
   deathMannerId: string;
   deathCauseId: string;
   deathCause: string;
   deathDate: string;
+  deathLocation: string | null;
   lastName: string | null;
   givenNames: string | null;
   age: number | null;
+  ageUnit: string | null;
   sex: string | null;
   deathManner: DeathManner;
   inquest: Inquest;
-  inquestType: InquestType;
+  inquestReason: InquestReason;
 }
 
 export interface DocumentSource {
@@ -99,6 +108,7 @@ export interface DocumentSource {
 export interface Inquest {
   inquestId?: number;
   jurisdictionId: string;
+  location: string | null;
   isPrimary?: number;
   name: string;
   overview: string | null;
@@ -109,7 +119,8 @@ export interface Inquest {
   end: string | null;
   sittingDays: number | null;
   exhibits: number | null;
-  remarks: string | null;
+  recommendations: number | null;
+  tags: string | null;
   deceased: Deceased[];
   jurisdiction: Jurisdiction;
   inquestDocuments: InquestDocument[];
@@ -154,11 +165,12 @@ export interface InquestKeyword {
   inquestCategoryId: string | null;
   name: string;
   description: string | null;
+  synonyms: string | null;
   inquestCategory: InquestCategory;
 }
 
-export interface InquestType {
-  inquestTypeId: string;
+export interface InquestReason {
+  inquestReasonId: string;
   name: string;
   isMandatory: number;
 }
@@ -176,7 +188,7 @@ export interface Source {
   sourceId: string;
   jurisdictionId: string | null;
   name: string;
-  code: string | null;
+  code: string;
   rank: number;
   jurisdiction: Jurisdiction;
 }

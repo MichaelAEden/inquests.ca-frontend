@@ -54,12 +54,12 @@ const InquestSearchResult = ({ inquest, query, className }: InquestSearchResultP
     // In most cases there is only one deceased. Handle this case separately to avoid unnecessary computation.
     if (inquest.deceased.length === 1) {
       const deceased = inquest.deceased[0];
-      return `${deceased.inquestType.name} — ${deceased.deathManner.name} — ${deceased.deathCause}`;
+      return `${deceased.inquestReason.name} — ${deceased.deathManner.name} — ${deceased.deathCause}`;
     } else {
-      const inquestTypes = _.uniq(inquest.deceased.map((d) => d.inquestType.name)).join(', ');
+      const inquestReasons = _.uniq(inquest.deceased.map((d) => d.inquestReason.name)).join(', ');
       const mannersOfDeath = _.uniq(inquest.deceased.map((d) => d.deathManner.name)).join(', ');
       const causesOfDeath = inquest.deceased.map((d) => d.deathCause).join(', ');
-      return `${inquestTypes} — ${mannersOfDeath} — ${causesOfDeath}`;
+      return `${inquestReasons} — ${mannersOfDeath} — ${causesOfDeath}`;
     }
   };
 

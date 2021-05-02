@@ -135,26 +135,12 @@ const DocumentsSection = ({
 };
 
 const InternalLinksSection = ({ authority }: { authority: Authority }) => {
-  const {
-    inquests,
-    authorityRelated,
-    authorityCitations,
-    authorityCitedBy,
-    authoritySuperceded,
-    authoritySupercededBy,
-  } = authority;
+  const { inquests, authorityRelated, authorityCitations, authorityCitedBy } = authority;
 
   // Hide this section if the authority does not contain internal links.
   if (
     _.every(
-      [
-        inquests,
-        authorityRelated,
-        authorityCitations,
-        authorityCitedBy,
-        authoritySuperceded,
-        authoritySupercededBy,
-      ],
+      [inquests, authorityRelated, authorityCitations, authorityCitedBy],
       (arr) => !arr.length
     )
   )
@@ -171,16 +157,6 @@ const InternalLinksSection = ({ authority }: { authority: Authority }) => {
         {!!authorityCitedBy.length && (
           <Row name="Cited&nbsp;By">
             <AuthorityInternalLinks authorities={authorityCitedBy} category="Cited By" />
-          </Row>
-        )}
-        {!!authoritySuperceded.length && (
-          <Row name="Supersedes">
-            <AuthorityInternalLinks authorities={authoritySuperceded} category="Supersedes" />
-          </Row>
-        )}
-        {!!authoritySupercededBy.length && (
-          <Row name="Superseded&nbsp;By">
-            <AuthorityInternalLinks authorities={authoritySupercededBy} category="Superseded By" />
           </Row>
         )}
         {!!inquests.length && (
