@@ -91,7 +91,7 @@ const DeceasedSection = ({ deceasedList, classes }: { deceasedList: Deceased[]; 
             {getDateString(deceased.deathDate)}
           </Row>
           <Row compact name="Reason&nbsp;for&nbsp;Inquest">
-            {deceased.inquestType.name}
+            {deceased.inquestReason.name}
           </Row>
         </Table>
         {i !== deceasedList.length - 1 ? <br /> : null}
